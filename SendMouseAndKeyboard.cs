@@ -58,6 +58,42 @@ namespace MKVToMP4Converter
             SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
         }
 
+        public static void KeyboardSendBackspace()
+        {
+            var inputList = new List<Input>();
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)8, // Backspace key.
+                        dwFlags = (uint)KeyEventF.KeyDown,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)8, // Backspace key.
+                        dwFlags = (uint)KeyEventF.KeyUp,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            var inputs = inputList.ToArray();
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        }
+
         public static void KeyboardSendCharacters(string characters)
         {
             var keyboardLayout = GetKeyboardLayout(0);
@@ -68,6 +104,70 @@ namespace MKVToMP4Converter
             {
                 inputList.AddRange(HandleKeyPress(character, keyboardLayout));
             }
+
+            var inputs = inputList.ToArray();
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
+        }
+
+        public static void KeyboardSendControlA()
+        {
+            var inputList = new List<Input>();
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)17, // CTRL key.
+                        dwFlags = (uint)KeyEventF.KeyDown,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)65, // A key.
+                        dwFlags = (uint)KeyEventF.KeyDown,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)65, // A key.
+                        dwFlags = (uint)KeyEventF.KeyUp,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Keyboard,
+                u = new InputUnion
+                {
+                    ki = new KeyboardInput
+                    {
+                        wVk = (ushort)17, // CTRL key.
+                        dwFlags = (uint)KeyEventF.KeyUp,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
 
             var inputs = inputList.ToArray();
             SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
