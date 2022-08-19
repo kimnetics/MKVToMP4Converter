@@ -27,6 +27,19 @@ namespace MKVToMP4Converter
             SendMouseAndKeyboard.KeyboardSendCharacters(@"C:\Video\Alien\Alien_t01 - Director's Cut.mkv");
             SendMouseAndKeyboard.KeyboardSendCR();
             Thread.Sleep(2000);
+
+            // Select Option.
+            SendMouseAndKeyboard.MouseSetCursorPos(1460, 500);
+            Thread.Sleep(100);
+            SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(1000);
+
+            // Select Name & Tag.
+            SendMouseAndKeyboard.MouseSetCursorPos(1410, 350);
+            Thread.Sleep(100);
+            SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(1000);
+
         }
 
         private static void StartVideoProc()

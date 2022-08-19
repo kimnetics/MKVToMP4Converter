@@ -6,6 +6,24 @@ namespace MKVToMP4Converter
     // By Bojidar Qnkov
     public static class SendMouseAndKeyboard
     {
+        public static void MouseWriteCursorPos()
+        {
+            var point = new Point();
+
+            // This is meant to assist with finding a position to use.
+            // The user must manually stop this method.
+            do
+            {
+                GetCursorPos(out point);
+                Console.WriteLine($"x: {point.x} y: {point.y}");
+            } while (true);
+        }
+
+        public static void MouseSetCursorPos(int x, int y)
+        {
+            SetCursorPos(x, y);
+        }
+
         public static void MouseClick()
         {
             var inputList = new List<Input>();
@@ -38,11 +56,6 @@ namespace MKVToMP4Converter
 
             var inputs = inputList.ToArray();
             SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
-        }
-
-        public static void MouseSetCursorPos(int x, int y)
-        {
-            SetCursorPos(x, y);
         }
 
         public static void KeyboardSendCharacters(string characters)
@@ -257,6 +270,16 @@ namespace MKVToMP4Converter
             public uint type;
             public InputUnion u;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct Point
+        {
+            public int x;
+            public int y;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetCursorPos(out Point lpPoint);
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetKeyboardLayout(uint idThread);
