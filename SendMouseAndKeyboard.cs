@@ -8,34 +8,35 @@ namespace MKVToMP4Converter
     {
         public static void MouseClick()
         {
-            Input[] inputs = new Input[]
+            var inputList = new List<Input>();
+
+            inputList.Add(new Input
             {
-                new Input
+                type = (int)InputType.Mouse,
+                u = new InputUnion
                 {
-                    type = (int) InputType.Mouse,
-                    u = new InputUnion
+                    mi = new MouseInput
                     {
-                        mi = new MouseInput
-                        {
-                            dwFlags = (uint)(MouseEventF.LeftDown),
-                            dwExtraInfo = GetMessageExtraInfo()
-                        }
-                    }
-                },
-                new Input
-                {
-                    type = (int) InputType.Mouse,
-                    u = new InputUnion
-                    {
-                        mi = new MouseInput
-                        {
-                            dwFlags = (uint)MouseEventF.LeftUp,
-                            dwExtraInfo = GetMessageExtraInfo()
-                        }
+                        dwFlags = (uint)MouseEventF.LeftDown,
+                        dwExtraInfo = GetMessageExtraInfo()
                     }
                 }
-            };
+            });
 
+            inputList.Add(new Input
+            {
+                type = (int)InputType.Mouse,
+                u = new InputUnion
+                {
+                    mi = new MouseInput
+                    {
+                        dwFlags = (uint)MouseEventF.LeftUp,
+                        dwExtraInfo = GetMessageExtraInfo()
+                    }
+                }
+            });
+
+            var inputs = inputList.ToArray();
             SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
         }
 
@@ -70,8 +71,8 @@ namespace MKVToMP4Converter
                 {
                     ki = new KeyboardInput
                     {
-                        wVk = (ushort)13,
-                        dwFlags = (uint)(KeyEventF.KeyDown),
+                        wVk = (ushort)13, // Enter key.
+                        dwFlags = (uint)KeyEventF.KeyDown,
                         dwExtraInfo = GetMessageExtraInfo()
                     }
                 }
@@ -84,8 +85,8 @@ namespace MKVToMP4Converter
                 {
                     ki = new KeyboardInput
                     {
-                        wVk = (ushort)13,
-                        dwFlags = (uint)(KeyEventF.KeyUp),
+                        wVk = (ushort)13, // Enter key.
+                        dwFlags = (uint)KeyEventF.KeyUp,
                         dwExtraInfo = GetMessageExtraInfo()
                     }
                 }
@@ -122,7 +123,7 @@ namespace MKVToMP4Converter
                         ki = new KeyboardInput
                         {
                             wVk = (ushort)160, // Left Shift key.
-                            dwFlags = (uint)(KeyEventF.KeyDown),
+                            dwFlags = (uint)KeyEventF.KeyDown,
                             dwExtraInfo = GetMessageExtraInfo()
                         }
                     }
@@ -137,7 +138,7 @@ namespace MKVToMP4Converter
                     ki = new KeyboardInput
                     {
                         wVk = (ushort)virtualKeyCode,
-                        dwFlags = (uint)(KeyEventF.KeyDown),
+                        dwFlags = (uint)KeyEventF.KeyDown,
                         dwExtraInfo = GetMessageExtraInfo()
                     }
                 }
@@ -151,7 +152,7 @@ namespace MKVToMP4Converter
                     ki = new KeyboardInput
                     {
                         wVk = (ushort)virtualKeyCode,
-                        dwFlags = (uint)(KeyEventF.KeyUp),
+                        dwFlags = (uint)KeyEventF.KeyUp,
                         dwExtraInfo = GetMessageExtraInfo()
                     }
                 }
@@ -167,7 +168,7 @@ namespace MKVToMP4Converter
                         ki = new KeyboardInput
                         {
                             wVk = (ushort)160, // Left Shift key.
-                            dwFlags = (uint)(KeyEventF.KeyUp),
+                            dwFlags = (uint)KeyEventF.KeyUp,
                             dwExtraInfo = GetMessageExtraInfo()
                         }
                     }
@@ -258,6 +259,9 @@ namespace MKVToMP4Converter
         }
 
         [DllImport("user32.dll")]
+        private static extern IntPtr GetKeyboardLayout(uint idThread);
+
+        [DllImport("user32.dll")]
         private static extern IntPtr GetMessageExtraInfo();
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -265,9 +269,6 @@ namespace MKVToMP4Converter
 
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int x, int y);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetKeyboardLayout(uint idThread);
 
         [DllImport("user32.dll")]
         private static extern short VkKeyScanExA(char ch, IntPtr dwhkl);
