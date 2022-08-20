@@ -11,8 +11,6 @@ namespace MKVToMP4Converter
             VideoInfo videoInfo = ReadVideoInfoFile(directory);
 
             ConvertVideo(directory, videoInfo);
-
-            return;
         }
 
         private static VideoInfo ReadVideoInfoFile(string directory)
@@ -142,6 +140,22 @@ namespace MKVToMP4Converter
             SendMouseAndKeyboard.MouseSetCursorPos(1760, 980);
             Thread.Sleep(100);
             SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(3000);
+
+            // Wait for conversion to complete.
+            GPUInfo.WaitForGPULoadToLighten();
+
+            // Select Close form.
+            SendMouseAndKeyboard.MouseSetCursorPos(1800, 350);
+            Thread.Sleep(100);
+            SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(1000);
+
+            // Select Close form.
+            SendMouseAndKeyboard.MouseSetCursorPos(1650, 440);
+            Thread.Sleep(100);
+            SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(1000);
         }
 
         private static void StartVideoProc()
