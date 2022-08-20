@@ -1,6 +1,6 @@
 ﻿namespace MKVToMP4Converter
 {
-    internal class VideoInfo
+    public class VideoInfo
     {
         public string Title { get; set; }
         public string MKVFile { get; set; }
