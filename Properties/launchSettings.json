@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MKVToMP4Converter": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Video"
+    }
+  }
+}
