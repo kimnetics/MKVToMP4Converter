@@ -2,7 +2,7 @@
 {
     public static class ConvertVideo
     {
-        public static void Convert(string directory, VideoInfo videoInfo)
+        public static void Convert(string videoDirectory, string outputDirectory, VideoInfo videoInfo)
         {
             // Start VideoProc.
             var startVideoProc = new Thread(new ThreadStart(StartVideoProc));
@@ -22,7 +22,7 @@
             Thread.Sleep(1000);
 
             // Enter MKV file name.
-            SendMouseAndKeyboard.KeyboardSendCharacters(Path.Combine(directory, videoInfo.MKVFile));
+            SendMouseAndKeyboard.KeyboardSendCharacters(Path.Combine(videoDirectory, videoInfo.MKVFile));
             SendMouseAndKeyboard.KeyboardSendCR();
             Thread.Sleep(3000);
 
@@ -45,9 +45,22 @@
             Thread.Sleep(1000);
 
             // Enter cover file name.
-            SendMouseAndKeyboard.KeyboardSendCharacters(Path.Combine(directory, videoInfo.CoverFile));
+            SendMouseAndKeyboard.KeyboardSendCharacters(Path.Combine(videoDirectory, videoInfo.CoverFile));
             SendMouseAndKeyboard.KeyboardSendCR();
             Thread.Sleep(3000);
+
+            // Select Title (so we can paste and cut output file name).
+            SendMouseAndKeyboard.MouseSetCursorPos(1310, 540);
+            Thread.Sleep(100);
+            SendMouseAndKeyboard.MouseClick();
+            Thread.Sleep(100);
+
+            // Enter output file.
+            SendMouseAndKeyboard.KeyboardSendControlA();
+            SendMouseAndKeyboard.KeyboardSendCharacters(videoInfo.OutputFile);
+            SendMouseAndKeyboard.KeyboardSendControlA();
+            SendMouseAndKeyboard.KeyboardSendControlX();
+            Thread.Sleep(100);
 
             // Select Output Name.
             SendMouseAndKeyboard.MouseSetCursorPos(1310, 490);
@@ -57,7 +70,7 @@
 
             // Enter output file name.
             SendMouseAndKeyboard.KeyboardSendControlA();
-            SendMouseAndKeyboard.KeyboardSendCharacters(videoInfo.OutputFile);
+            SendMouseAndKeyboard.KeyboardSendControlV();
             Thread.Sleep(100);
 
             // Select Title.
@@ -119,6 +132,14 @@
             Thread.Sleep(100);
             SendMouseAndKeyboard.MouseClick();
             Thread.Sleep(1000);
+
+            // Rename file if it was changed from desired value.
+            string properFile = Path.Combine(outputDirectory, videoInfo.OutputFile);
+            string renamedFile = properFile.Replace("'", "_");
+            if (File.Exists(renamedFile))
+            {
+                File.Move(renamedFile, properFile);
+            }
         }
 
         private static void StartVideoProc()

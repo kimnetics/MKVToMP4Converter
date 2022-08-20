@@ -27,7 +27,7 @@ namespace MKVToMP4Converter
 
             VideoInfo videoInfo = ReadVideoInfoFile(videoDirectory);
 
-            ConvertVideo.Convert(videoDirectory, videoInfo);
+            ConvertVideo.Convert(videoDirectory, outputDirectory, videoInfo);
 
             UpdateFileMetadata.Update(outputDirectory, videoInfo);
 
