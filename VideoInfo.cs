@@ -8,6 +8,7 @@
         public string OutputFile { get; set; }
         public string Year { get; set; }
         public string Rating { get; set; }
+        public string Duration { get; set; }
         public string Quality { get; set; }
     }
 }

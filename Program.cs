@@ -6,11 +6,14 @@ namespace MKVToMP4Converter
     {
         static void Main(string[] args)
         {
-            string directory = @"C:\Video\Alien";
+            string videoDirectory = @"C:\Video\Alien";
+            string outputDirectory = @"C:\Users\gkim\Videos\VideoProc";
 
-            VideoInfo videoInfo = ReadVideoInfoFile(directory);
+            VideoInfo videoInfo = ReadVideoInfoFile(videoDirectory);
 
-            ConvertVideo.Convert(directory, videoInfo);
+            ConvertVideo.Convert(videoDirectory, videoInfo);
+
+            UpdateFileMetadata.Update(outputDirectory, videoInfo);
         }
 
         private static VideoInfo ReadVideoInfoFile(string directory)
