@@ -1,7 +1,9 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.Versioning;
+using System.Text.Json;
 
 namespace MKVToMP4Converter
 {
+    [SupportedOSPlatform("windows")]
     public class Program
     {
         static void Main(string[] args)
@@ -25,11 +27,17 @@ namespace MKVToMP4Converter
         {
             LogInfo($"Converting \"{videoDirectory}\" started");
 
+            var startedDateTime = DateTime.UtcNow;
+
             VideoInfo videoInfo = ReadVideoInfoFile(videoDirectory);
 
             ConvertVideo.Convert(videoDirectory, outputDirectory, videoInfo);
 
             UpdateFileMetadata.Update(outputDirectory, videoInfo);
+
+            var finishedDateTime = DateTime.UtcNow;
+
+            Database.AddVideoInfo(videoInfo, "V4", startedDateTime, finishedDateTime);
 
             LogInfo($"Converting \"{videoDirectory}\" finished");
         }

@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Runtime.Versioning;
 
 namespace MKVToMP4Converter
 {
+    [SupportedOSPlatform("windows")]
     public static class GPUInfo
     {
         public static void WaitForGPULoadToLighten()

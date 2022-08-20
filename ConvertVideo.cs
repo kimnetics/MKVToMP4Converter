@@ -1,5 +1,8 @@
-﻿namespace MKVToMP4Converter
+﻿using System.Runtime.Versioning;
+
+namespace MKVToMP4Converter
 {
+    [SupportedOSPlatform("windows")]
     public static class ConvertVideo
     {
         public static void Convert(string videoDirectory, string outputDirectory, VideoInfo videoInfo)
