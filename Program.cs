@@ -6,21 +6,39 @@ namespace MKVToMP4Converter
     {
         static void Main(string[] args)
         {
-            string videoDirectory = @"C:\Video\Alien";
+            LogStartStop("MKVToMP4Converter started");
+
+            string baseDirectory = args[0];
             string outputDirectory = @"C:\Users\gkim\Videos\VideoProc";
+
+            var directoryInfo = new DirectoryInfo(baseDirectory);
+            DirectoryInfo[] directories = directoryInfo.GetDirectories();
+            foreach (DirectoryInfo videoDirectory in directories)
+            {
+                HandleVideo(videoDirectory.ToString(), outputDirectory);
+            }
+
+            LogStartStop("MKVToMP4Converter finished");
+        }
+
+        private static void HandleVideo(string videoDirectory, string outputDirectory)
+        {
+            LogInfo($"Converting \"{videoDirectory}\"  started");
 
             VideoInfo videoInfo = ReadVideoInfoFile(videoDirectory);
 
             ConvertVideo.Convert(videoDirectory, videoInfo);
 
             UpdateFileMetadata.Update(outputDirectory, videoInfo);
+
+            LogInfo($"Converting \"{videoDirectory}\"  finished");
         }
 
-        private static VideoInfo ReadVideoInfoFile(string directory)
+        private static VideoInfo ReadVideoInfoFile(string videoDirectory)
         {
             var videoInfo = new VideoInfo();
 
-            var fileName = Path.Combine(directory, @"VideoInfo.txt");
+            var fileName = Path.Combine(videoDirectory, @"VideoInfo.txt");
             try
             {
                 using (var reader = new StreamReader(fileName))
@@ -44,7 +62,26 @@ namespace MKVToMP4Converter
 
         public static void LogError(string message)
         {
-            Console.WriteLine($"Error - {message}");
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: Error - {message}");
+            Console.ForegroundColor = originalColor;
+        }
+
+        public static void LogInfo(string message)
+        {
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {message}");
+            Console.ForegroundColor = originalColor;
+        }
+
+        public static void LogStartStop(string message)
+        {
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {message}");
+            Console.ForegroundColor = originalColor;
         }
     }
 }
