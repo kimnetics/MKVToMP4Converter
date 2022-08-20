@@ -131,7 +131,7 @@
             SendMouseAndKeyboard.MouseSetCursorPos(1650, 440);
             Thread.Sleep(100);
             SendMouseAndKeyboard.MouseClick();
-            Thread.Sleep(1000);
+            Thread.Sleep(3000);
 
             // Rename file if it was changed from desired value.
             string properFile = Path.Combine(outputDirectory, videoInfo.OutputFile);

@@ -11,8 +11,11 @@ namespace MKVToMP4Converter
 
             // Confirm that video duration is correct.
             var expectedDuration = TimeSpan.ParseExact(videoInfo.Duration, @"h\:m\:s", CultureInfo.InvariantCulture);
-            if (TimeSpan.FromSeconds((int)(tFile.Properties.Duration.TotalSeconds)) != expectedDuration)
+            var actualDuration = TimeSpan.FromSeconds((int)(tFile.Properties.Duration.TotalSeconds));
+            double difference = Math.Abs(expectedDuration.Subtract(actualDuration).TotalSeconds);
+            if (difference > 1)
             {
+
                 throw new Exception("Video duration is not correct.");
             }
 
