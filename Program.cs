@@ -2,7 +2,7 @@
 
 namespace MKVToMP4Converter
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -39,7 +39,7 @@ namespace MKVToMP4Converter
             return videoInfo;
         }
 
-        private static void LogError(string message)
+        public static void LogError(string message)
         {
             Console.WriteLine($"Error - {message}");
         }
