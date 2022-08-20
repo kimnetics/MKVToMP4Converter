@@ -23,7 +23,7 @@ namespace MKVToMP4Converter
 
         private static void HandleVideo(string videoDirectory, string outputDirectory)
         {
-            LogInfo($"Converting \"{videoDirectory}\"  started");
+            LogInfo($"Converting \"{videoDirectory}\" started");
 
             VideoInfo videoInfo = ReadVideoInfoFile(videoDirectory);
 
@@ -31,7 +31,7 @@ namespace MKVToMP4Converter
 
             UpdateFileMetadata.Update(outputDirectory, videoInfo);
 
-            LogInfo($"Converting \"{videoDirectory}\"  finished");
+            LogInfo($"Converting \"{videoDirectory}\" finished");
         }
 
         private static VideoInfo ReadVideoInfoFile(string videoDirectory)

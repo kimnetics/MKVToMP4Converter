@@ -14,7 +14,7 @@ namespace MKVToMP4Converter
                 gpuCounters = GetGPUCounters();
                 gpuUsage = GetGPUUsage(gpuCounters);
                 Thread.Sleep(60000);
-            } while (gpuUsage > 50);
+            } while (gpuUsage > 30);
 
             Thread.Sleep(20000);
         }
