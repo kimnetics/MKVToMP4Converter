@@ -14,7 +14,7 @@ namespace MKVToMP4Converter
             {
                 string insertSQL =
                     $@"INSERT INTO tblVideoInfo
-(Title, MKVFile, CoverFile, OutputFile, [Year], Rating, Duration, QualityCode, ConversionVersionCode, StartedDateTime, FinishedDateTime)
+(Title, MKVFile, CoverFile, OutputFile, [Year], RatingCode, Duration, QualityCode, ConversionVersionCode, StartedDateTime, FinishedDateTime)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 var command = new OleDbCommand(insertSQL, connection);
