@@ -10,6 +10,7 @@ namespace MKVToMP4Converter
 
         public static void AddVideoInfo(VideoInfo videoInfo, string conversionVersionCode, DateTime startedDateTime, DateTime finishedDateTime)
         {
+            // Add tblVideoInfo record.
             using (var connection = new OleDbConnection(connectionString))
             {
                 string insertSQL =

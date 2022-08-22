@@ -10,8 +10,8 @@ namespace MKVToMP4Converter
         {
             var point = new Point();
 
-            // This is meant to assist with finding a position to use.
-            // The user must manually stop this method.
+            // This is meant to assist with finding a position to use for an element.
+            // When using it, you must manually stop this method with CTRL-C.
             do
             {
                 GetCursorPos(out point);
