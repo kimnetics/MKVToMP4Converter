@@ -1,5 +1,6 @@
 ﻿namespace MKVToMP4Converter
 {
+    #pragma warning disable CS8618
     public class VideoInfo
     {
         public string Title { get; set; }
