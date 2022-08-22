@@ -21,6 +21,8 @@ namespace MKVToMP4Converter
             }
 
             LogStartStop("MKVToMP4Converter finished");
+
+            Environment.Exit(0);
         }
 
         private static void HandleVideo(string videoDirectory, string outputDirectory)
