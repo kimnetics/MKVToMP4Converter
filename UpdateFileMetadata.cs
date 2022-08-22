@@ -17,8 +17,9 @@ namespace MKVToMP4Converter
             double difference = Math.Abs(expectedDuration.Subtract(actualDuration).TotalSeconds);
             if (difference > 1)
             {
-                Program.LogError("Video duration is not correct.");
-                throw new Exception("Video duration is not correct.");
+                string message = "Video duration is not correct.";
+                Program.LogError(message);
+                throw new Exception(message);
             }
 
             // Set year.
