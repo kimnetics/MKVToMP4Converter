@@ -11,7 +11,7 @@ namespace MKVToMP4Converter
             string mkvFileSpec = Path.Combine(videoDirectory, videoInfo.MKVFile);
             if (!File.Exists(mkvFileSpec))
             {
-                string message = $"MKV file \"{mkvFileSpec}\" not found.";
+                string message = $"MKV file \"{mkvFileSpec}\" was not found.";
                 Program.LogError(message);
                 throw new Exception(message);
             }
@@ -20,7 +20,7 @@ namespace MKVToMP4Converter
             string coverFileSpec = Path.Combine(videoDirectory, videoInfo.CoverFile);
             if (!File.Exists(coverFileSpec))
             {
-                string message = $"Cover file \"{coverFileSpec}\" not found.";
+                string message = $"Cover file \"{coverFileSpec}\" was not found.";
                 Program.LogError(message);
                 throw new Exception(message);
             }
@@ -45,7 +45,7 @@ namespace MKVToMP4Converter
             // Enter MKV file name.
             SendMouseAndKeyboard.KeyboardSendCharacters(mkvFileSpec);
             SendMouseAndKeyboard.KeyboardSendCR();
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
 
             // Select Option.
             SendMouseAndKeyboard.MouseSetCursorPos(1460, 500);
@@ -68,7 +68,7 @@ namespace MKVToMP4Converter
             // Enter cover file name.
             SendMouseAndKeyboard.KeyboardSendCharacters(coverFileSpec);
             SendMouseAndKeyboard.KeyboardSendCR();
-            Thread.Sleep(3000);
+            Thread.Sleep(10000);
 
             // Select Title (so we can paste and cut output file name).
             SendMouseAndKeyboard.MouseSetCursorPos(1310, 540);

@@ -93,5 +93,13 @@ namespace MKVToMP4Converter
             Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {message}");
             Console.ForegroundColor = originalColor;
         }
+
+        public static void LogWarning(string message)
+        {
+            ConsoleColor originalColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {message}");
+            Console.ForegroundColor = originalColor;
+        }
     }
 }

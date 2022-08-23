@@ -13,12 +13,22 @@ namespace MKVToMP4Converter
 
             do
             {
+                Thread.Sleep(10000);
                 gpuCounters = GetGPUCounters();
-                gpuUsage = GetGPUUsage(gpuCounters);
-                Thread.Sleep(30000);
+                float gpuUsage1 = GetGPUUsage(gpuCounters);
+
+                Thread.Sleep(10000);
+                gpuCounters = GetGPUCounters();
+                float gpuUsage2 = GetGPUUsage(gpuCounters);
+
+                Thread.Sleep(10000);
+                gpuCounters = GetGPUCounters();
+                float gpuUsage3 = GetGPUUsage(gpuCounters);
+
+                gpuUsage = (gpuUsage1 + gpuUsage2 + gpuUsage3) / 3;
             } while (gpuUsage > 30);
 
-            Thread.Sleep(30000);
+            Thread.Sleep(20000);
         }
 
         private static List<PerformanceCounter> GetGPUCounters()

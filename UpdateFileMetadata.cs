@@ -18,8 +18,7 @@ namespace MKVToMP4Converter
             if (difference > 1)
             {
                 string message = "Video duration is not correct.";
-                Program.LogError(message);
-                throw new Exception(message);
+                Program.LogWarning(message);
             }
 
             // Set year.
