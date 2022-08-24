@@ -8,22 +8,18 @@ namespace MKVToMP4Converter
     {
         public static void WaitForGPULoadToLighten()
         {
-            List<PerformanceCounter> gpuCounters;
             float gpuUsage;
 
             do
             {
                 Thread.Sleep(10000);
-                gpuCounters = GetGPUCounters();
-                float gpuUsage1 = GetGPUUsage(gpuCounters);
+                float gpuUsage1 = GetGPUUsage();
 
                 Thread.Sleep(10000);
-                gpuCounters = GetGPUCounters();
-                float gpuUsage2 = GetGPUUsage(gpuCounters);
+                float gpuUsage2 = GetGPUUsage();
 
                 Thread.Sleep(10000);
-                gpuCounters = GetGPUCounters();
-                float gpuUsage3 = GetGPUUsage(gpuCounters);
+                float gpuUsage3 = GetGPUUsage();
 
                 gpuUsage = (gpuUsage1 + gpuUsage2 + gpuUsage3) / 3;
             } while (gpuUsage > 30);
@@ -33,34 +29,59 @@ namespace MKVToMP4Converter
 
         private static List<PerformanceCounter> GetGPUCounters()
         {
-            var category = new PerformanceCounterCategory("GPU Engine");
-            string[] counterNames = category.GetInstanceNames();
+            var gpuCounters = new List<PerformanceCounter>();
 
-            List<PerformanceCounter> gpuCounters = counterNames
-                .Where(counterName => counterName.EndsWith("engtype_3D"))
-                .SelectMany(counterName => category.GetCounters(counterName))
-                .Where(counter => counter.CounterName.Equals("Utilization Percentage"))
-                .ToList();
+            bool gotCounters = false;
+            do
+            {
+                try
+                {
+                    var category = new PerformanceCounterCategory("GPU Engine");
+                    string[] counterNames = category.GetInstanceNames();
+
+                    gpuCounters = counterNames
+                        .Where(counterName => counterName.EndsWith("engtype_3D"))
+                        .SelectMany(counterName => category.GetCounters(counterName))
+                        .Where(counter => counter.CounterName.Equals("Utilization Percentage"))
+                        .ToList();
+
+                    gotCounters = true;
+                }
+                catch
+                {
+                    gotCounters = false;
+                }
+            } while (!gotCounters);
 
             return gpuCounters;
         }
 
-        private static float GetGPUUsage(List<PerformanceCounter> gpuCounters)
+        private static float GetGPUUsage()
         {
-            try
+            float gpuUsage = 0;
+
+            bool gotUsage = false;
+            do
             {
-                gpuCounters.ForEach(x => x.NextValue());
+                List <PerformanceCounter> gpuCounters = GetGPUCounters();
 
-                Thread.Sleep(1000);
+                try
+                {
+                    gpuCounters.ForEach(x => x.NextValue());
 
-                float gpuUsage = gpuCounters.Sum(x => x.NextValue());
+                    Thread.Sleep(1000);
 
-                return gpuUsage;
-            }
-            catch
-            {
-                return 0;
-            }
+                    gpuUsage = gpuCounters.Sum(x => x.NextValue());
+
+                    gotUsage = true;
+                }
+                catch
+                {
+                    gotUsage = false;
+                }
+            } while (!gotUsage);
+
+            return gpuUsage;
         }
 
     }
