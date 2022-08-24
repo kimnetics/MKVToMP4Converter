@@ -96,7 +96,8 @@ namespace MKVToMP4Converter
 
         public static void KeyboardSendCharacters(string characters)
         {
-            var keyboardLayout = GetKeyboardLayout(0);
+            //var keyboardLayout = GetKeyboardLayout(0); Keyboard layout doesn't change for just me so hardcode for now.
+            var keyboardLayout = new IntPtr(0x0000000004090409);
 
             var inputList = new List<Input>();
 

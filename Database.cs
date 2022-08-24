@@ -18,21 +18,21 @@ namespace MKVToMP4Converter
 (Title, MKVFile, CoverFile, OutputFile, [Year], RatingCode, Duration, QualityCode, ConversionVersionCode, StartedDateTime, FinishedDateTime)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                var command = new OleDbCommand(insertSQL, connection);
-                command.Parameters.AddWithValue("@title", videoInfo.Title);
-                command.Parameters.AddWithValue("@mkvFile", videoInfo.MKVFile);
-                command.Parameters.AddWithValue("@coverFile", videoInfo.CoverFile);
-                command.Parameters.AddWithValue("@outputFile", videoInfo.OutputFile);
-                command.Parameters.AddWithValue("@year", videoInfo.Year);
-                command.Parameters.AddWithValue("@rating", videoInfo.Rating);
-                command.Parameters.AddWithValue("@duration", videoInfo.Duration);
-                command.Parameters.AddWithValue("@quality", videoInfo.Quality);
-                command.Parameters.AddWithValue("@conversionVersionCode", conversionVersionCode);
-                command.Parameters.AddWithValue("@startedDateTime", startedDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                command.Parameters.AddWithValue("@finishedDateTime", finishedDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-
                 try
                 {
+                    var command = new OleDbCommand(insertSQL, connection);
+                    command.Parameters.AddWithValue("@title", videoInfo.Title);
+                    command.Parameters.AddWithValue("@mkvFile", videoInfo.MKVFile);
+                    command.Parameters.AddWithValue("@coverFile", videoInfo.CoverFile);
+                    command.Parameters.AddWithValue("@outputFile", videoInfo.OutputFile);
+                    command.Parameters.AddWithValue("@year", videoInfo.Year);
+                    command.Parameters.AddWithValue("@rating", videoInfo.Rating);
+                    command.Parameters.AddWithValue("@duration", videoInfo.Duration);
+                    command.Parameters.AddWithValue("@quality", videoInfo.Quality);
+                    command.Parameters.AddWithValue("@conversionVersionCode", conversionVersionCode);
+                    command.Parameters.AddWithValue("@startedDateTime", startedDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                    command.Parameters.AddWithValue("@finishedDateTime", finishedDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
