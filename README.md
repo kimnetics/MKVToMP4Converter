@@ -8,7 +8,7 @@ A Windows command line application to convert MKV files to MP4 files. The applic
 
 #### VideoProc Converter
 
-The application uses [VideoProc Converter](https://www.videoproc.com/video-converting-software/) from Digiarty Software to do the actual video conversion. As a side note, I tried several different converters both free and paid, and I found VideoProc Converter to be superior to the others. The application uses Mouse and Keyboard input to control the application. This makes the application sensitive to any UI changes in VideoProc Converter. The application is currently designed for VideoProc Converter 4.8.
+The application uses [VideoProc Converter](https://www.videoproc.com/video-converting-software/) from Digiarty Software to do the actual video conversion. As a side note, I tried several different converters both free and paid, and I found VideoProc Converter to be superior to the others. The application uses Mouse and Keyboard input to control VideoProc Converter. This makes the application sensitive to any UI changes in VideoProc Converter. The application is currently designed for VideoProc Converter 4.8.
 
 #### Microsoft Access
 
@@ -16,7 +16,7 @@ The application uses Microsoft Access to record information about each file conv
 
 <img src="Database Diagram.png" width="50%">
 
-A Microsoft Access database with an empty main table (tblVideoInfo) is present in the MKVToMP4Converter.accdb file. The supporting code tables have records in them.
+A Microsoft Access database with an empty main table (tblVideoInfo) is present in the MKVToMP4Converter.accdb file. The supporting code tables have records in them to make getting started easier.
 
 ### Preparing the Application
 
@@ -38,7 +38,7 @@ Load the MKVToMP4Converter.sln solution in Visual Studio and Build the solution.
 
 Each MKV file to be converted should be placed in its own directory. Along with the MKV file there should be two other files in the directory. The first is a jpg file with the cover art to be associated with the video. The second is a file called `VideoInfo.txt` that supplies information to the application about the video.
 
-If you are converting multiple MKV files, you should create the directories for the files under one common directory. You will then specify this directory when running the application.
+If you are converting multiple MKV files, you should create the directories for the files under one common directory. You will then specify the common directory when running the application.
 
 The `VideoInfo.txt` file has the following format:
 
@@ -61,7 +61,7 @@ Title - The title of the video. It will be stored as the title in the MP4.
 
 MKVFile - The name of the source MKV file. This is the file to be converted.
 
-CoverFile - The name of the cover art jpg file. The jpg will be included in the MP4.
+CoverFile - The name of the cover art jpg file. The cover art will be included in the MP4.
 
 OutputFile - The name of the output MP4 file. It will be stored in the output directory you set.
 
@@ -69,7 +69,7 @@ Year - The year of the video. It will be stored as the year in the MP4 and used 
 
 Rating - The MPAA rating of the video. Values used must exist in the tblRating table.
 
-Duration - The length of the video. This value must match the actual length of the video.
+Duration - The length of the video. This value must match the actual length of the video. The application checks the length of the output video to confirm that the entire video was converted. Windows Explorer file property details shows the length of the video.
 
 Quality - The quality of the video. Values used must exist in the tblQuality table. Currently `DVD` and `Blu-ray` are the possible values.
 
@@ -89,4 +89,4 @@ Substitute the location of the directory above your MKV directories for `video-d
 
 The created/modified dates of the MP4 are set to help with ordering of videos. I found that some video players use these dates for ordering when presenting a list of videos.
 
-VideoProc Converter sometimes does not save the cover art properly in the MP4 file and no cover art is shown. When this happens, I use [Mp3tag](https://www.mp3tag.de/en/) to add the cover art manually. This updates the created/modified dates, so I use [BulkFileChanger](http://www.nirsoft.net/utils/bulk_file_changer.html) to fix the dates to their former values.
+VideoProc Converter sometimes does not save the cover art properly in the MP4 file and no cover art is shown. I reported this as a bug to them. When this happens, I use [Mp3tag](https://www.mp3tag.de/en/) to add the cover art manually. This updates the created/modified dates, so I use [BulkFileChanger](http://www.nirsoft.net/utils/bulk_file_changer.html) to fix the dates to their former values.
