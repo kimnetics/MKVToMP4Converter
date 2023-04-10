@@ -107,4 +107,4 @@ C:\Utils\MKVToMP4Converter\bin\Debug\net6.0>
 
 The created/modified dates of the MP4 are set to help with ordering of videos. I found that some video players use these dates for ordering when presenting a list of videos.
 
-VideoProc Converter sometimes does not save the cover art properly in the MP4 file and no cover art is shown. I reported this as a bug to them. When this happens, I use [Mp3tag](https://www.mp3tag.de/en/) to add the cover art manually. This updates the created/modified dates, so I use [BulkFileChanger](http://www.nirsoft.net/utils/bulk_file_changer.html) to fix the dates to their former values.
+VideoProc Converter sometimes does not save the cover art properly in the MP4 file and no cover art is shown. I reported this as a bug to them. When this happens, I use [Mp3tag](https://www.mp3tag.de/en/) to add the cover art manually. This changes the modified date, so I use [BulkFileChanger](http://www.nirsoft.net/utils/bulk_file_changer.html) to change the date back to its former value.
