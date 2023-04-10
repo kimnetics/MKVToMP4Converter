@@ -85,6 +85,24 @@ MKVToMP4Converter.exe video-directory-location
 
 Substitute the location of the directory above your MKV directories for `video-directory-location`.
 
+While running, the application will move the mouse and enter keyboard input. It is best to leave the computer alone until the application is finished to not confuse things with multiple sources of mouse and keyboard input. The application expects VideoProc Converter to be the top window and be centered on a 4K display for the mouse click locations to be accurate.
+
+A run of the application looks like this:
+
+```
+C:\Utils\MKVToMP4Converter\bin\Debug\net6.0>MKVToMP4Converter.exe C:\Video
+2023-01-01 08:57:55: MKVToMP4Converter started
+2023-01-01 08:57:55: Converting "C:\Video\Test Video 1" started
+2023-01-01 09:38:49: Converting "C:\Video\Test Video 1" finished
+2023-01-01 09:38:49: Converting "C:\Video\Test Video 2" started
+2023-01-01 10:08:52: Converting "C:\Video\Test Video 2" finished
+2023-01-01 10:08:52: Converting "C:\Video\Test Video 3" started
+2023-01-01 10:42:16: Converting "C:\Video\Test Video 3" finished
+2023-01-01 10:42:16: MKVToMP4Converter finished
+
+C:\Utils\MKVToMP4Converter\bin\Debug\net6.0>
+```
+
 ## Notes
 
 The created/modified dates of the MP4 are set to help with ordering of videos. I found that some video players use these dates for ordering when presenting a list of videos.
